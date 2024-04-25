@@ -1,0 +1,271 @@
+/*
+Copyright 2019 @foostan
+Copyright 2020 Drashna Jaelre <@drashna>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+#include QMK_KEYBOARD_H
+#include "i18n.h"
+
+typedef struct {
+    uint16_t tap;
+    uint16_t hold;
+    uint16_t held;
+} tap_dance_tap_hold_t;
+tap_dance_action_t *action;
+
+enum LAYERS {
+  _BASE,
+  _NAV,
+  _NUM,
+  _SYM,
+  _FUN,
+  _GAME,
+  _GAME2,
+  _GAME_FN,
+};
+
+enum tap_dance_codes {
+  DANCE_0,
+  DANCE_1,
+  DANCE_2,
+  DANCE_3,
+};
+
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    [_BASE] = LAYOUT_split_3x6_3(
+  //,----------------------------------------------------------------------------------------------------------------.  ,---------------------------------------------------------------------------------------------------------------------------.
+     DE_PLUS          ,    KC_Q          ,    KC_W          ,    KC_F          ,    KC_P          ,    KC_B,                         KC_J          ,    KC_L          ,    KC_U           ,    DE_Y          , KC_BSPC          , DE_SS            ,
+  //|-----------------+------------------+------------------+------------------+------------------+------------------|  |--------------------------+------------------+-------------------+------------------+------------------+-------------------|
+     DE_MINS          ,MT(MOD_LGUI,KC_A),MT(MOD_LALT, KC_R) ,MT(MOD_LSFT, KC_S),MT(MOD_LCTL, KC_T),    KC_G,                         KC_M          ,MT(MOD_RCTL, KC_N),MT(MOD_RSFT, KC_E) ,MT(MOD_LALT, KC_I),MT(MOD_LGUI, KC_O), DE_DQOT          ,
+  //|-----------------+------------------+------------------+------------------+------------------+------------------|  |--------------------------+------------------+-------------------+------------------+------------------+-------------------|
+     DE_HASH          , TD(DANCE_0)     , TD(DANCE_1)       , TD(DANCE_2)      ,    KC_D          ,TD(DANCE_3),                      KC_K          ,    KC_H          , KC_COMMA          ,MT(MOD_RALT,KC_DOT), DE_SLSH         , DE_GRV           ,
+  //|-----------------+------------------+------------------+------------------+------------------+------------------|  |--------------------------+------------------+-------------------+------------------+------------------+-------------------|
+                                                             KC_TAB            , LT(_NAV,KC_ENTER), KC_SPACE        ,     MO(_NUM), KC_LEFT_SHIFT, MO(_SYM)
+                        //`------------------------------------------------------------------------------------------'  `--------------------------------------------------------------------------------------------------------'
+
+  ),
+
+    [_NAV] = LAYOUT_split_3x6_3(
+  //,----------------------------------------------------------------------------------------------------------------.  ,---------------------------------------------------------------------------------------------------------------------------.
+     KC_TRANSPARENT   , KC_ESCAPE        , KC_NO            , KC_NO            , QK_BOOT          , LALT(KC_F4),          KC_TRANSPARENT           ,LALT(LSFT(KC_F10)), KC_TRANSPARENT    , KC_TRANSPARENT   , KC_TRANSPARENT   , KC_TRANSPARENT   ,
+  //|-----------------+------------------+------------------+------------------+------------------+------------------|  |--------------------------+------------------+-------------------+------------------+------------------+-------------------|
+     KC_TRANSPARENT   , KC_LEFT_GUI      , KC_LEFT_ALT      , KC_LEFT_SHIFT    , KC_LEFT_CTRL     , KC_NO      ,          KC_TRANSPARENT           , KC_LEFT          , KC_DOWN           , KC_UP            , KC_RIGHT         , DE_QUOT          ,
+  //|-----------------+------------------+------------------+------------------+------------------+------------------|  |--------------------------+------------------+-------------------+------------------+------------------+-------------------|
+     KC_TRANSPARENT   , KC_DELETE        , KC_RIGHT_ALT     , KC_NO            , KC_TAB           , KC_NO      ,          KC_INSERT                , KC_HOME          , KC_PGDN           , KC_PAGE_UP       , KC_END           , KC_TRANSPARENT   ,
+  //|-----------------+------------------+------------------+------------------+------------------+------------------|  |--------------------------+------------------+-------------------+------------------+------------------+-------------------|
+                                                             KC_TRANSPARENT    , KC_TRANSPARENT   , KC_TRANSPARENT  ,     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
+                        //`------------------------------------------------------------------------------------------'  `--------------------------------------------------------------------------------------------------------'
+
+  ),
+
+    [_NUM] = LAYOUT_split_3x6_3(
+  //,----------------------------------------------------------------------------------------------------------------.  ,---------------------------------------------------------------------------------------------------------------------------.
+     KC_NO            , KC_NO            , KC_7             , KC_8             , KC_9             , DE_CIRC         ,     KC_NO                    , QK_BOOT          , KC_NO             , KC_NO            , KC_TRANSPARENT   , KC_TRANSPARENT   ,
+  //|-----------------+------------------+------------------+------------------+------------------+------------------|  |--------------------------+------------------+-------------------+------------------+------------------+-------------------|
+     KC_NO            , KC_KP_SLASH      , KC_4             , KC_5             , KC_6             , RALT(DE_PLUS)   ,     KC_NO                    , KC_LEFT_CTRL     , KC_LEFT_SHIFT     , KC_LEFT_ALT      , KC_LEFT_GUI      , KC_TRANSPARENT   ,
+  //|-----------------+------------------+------------------+------------------+------------------+------------------|  |--------------------------+------------------+-------------------+------------------+------------------+-------------------|
+     KC_NO            , KC_0             , KC_1             , KC_2             , KC_3             , DE_BSLS         ,     KC_NO                    , MO(_FUN)         , KC_NO             , KC_RIGHT_ALT     , KC_NO            , KC_TRANSPARENT   ,
+  //|-----------------+------------------+------------------+------------------+------------------+------------------|  |--------------------------+------------------+-------------------+------------------+------------------+-------------------|
+                                                              DE_PERC          , KC_DOT           , KC_SPACE        ,     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
+                        //`------------------------------------------------------------------------------------------'  `--------------------------------------------------------------------------------------------------------'
+
+  ),
+
+    [_SYM] = LAYOUT_split_3x6_3(
+  //,----------------------------------------------------------------------------------------------------------------.  ,---------------------------------------------------------------------------------------------------------------------------.
+     KC_KP_PLUS       , DE_AMPR          , DE_AT            , DE_LPRN          , DE_RPRN          , DE_AE           ,     KC_NO                    , QK_BOOT          , KC_NO             , KC_NO            , KC_TRANSPARENT   , KC_TRANSPARENT   ,
+  //|-----------------+------------------+------------------+------------------+------------------+------------------|  |--------------------------+------------------+-------------------+------------------+------------------+-------------------|
+     KC_KP_MINUS      , DE_PIPE          , DE_LESS          , DE_EQL           , DE_MORE          , DE_UE           ,     KC_NO                    , KC_LEFT_CTRL     , KC_LEFT_SHIFT     , KC_LEFT_ALT      , KC_LEFT_GUI      , KC_TRANSPARENT   ,
+  //|-----------------+------------------+------------------+------------------+------------------+------------------|  |--------------------------+------------------+-------------------+------------------+------------------+-------------------|
+     DE_DLR           , DE_EXLM          , DE_QST           , DE_LCBR          , DE_RCBR          , DE_OE           ,     KC_NO                    , KC_NO            , KC_NO             , KC_RIGHT_ALT     , DE_BSLS          , KC_TRANSPARENT   ,
+  //|-----------------+------------------+------------------+------------------+------------------+------------------|  |--------------------------+------------------+-------------------+------------------+------------------+-------------------|
+                                                              DE_LBRC          , KC_TAB           , DE_RBRC         ,     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
+                        //`------------------------------------------------------------------------------------------'  `--------------------------------------------------------------------------------------------------------'
+
+  ),
+
+  [_FUN] = LAYOUT_split_3x6_3(
+  //,----------------------------------------------------------------------------------------------------------------.  ,---------------------------------------------------------------------------------------------------------------------------.
+     KC_NO            , KC_F12           , KC_F7            , KC_F8            , KC_F9            , KC_PSCR         ,     KC_NO                    , QK_BOOT          , KC_NO             , KC_NO            , KC_TRANSPARENT   , KC_TRANSPARENT   ,
+  //|-----------------+------------------+------------------+------------------+------------------+------------------|  |--------------------------+------------------+-------------------+------------------+------------------+-------------------|
+     KC_NO            , KC_F11           , KC_F4            , KC_F5            , KC_F6            , KC_SCRL         ,     KC_NO                    , KC_LEFT_CTRL     , KC_LEFT_SHIFT     , KC_LEFT_ALT      , KC_LEFT_GUI      , KC_TRANSPARENT   ,
+  //|-----------------+------------------+------------------+------------------+------------------+------------------|  |--------------------------+------------------+-------------------+------------------+------------------+-------------------|
+     KC_NO            , KC_F10           , KC_F1            , KC_F2            , KC_F3            , KC_PAUSE        ,     KC_NO                    , KC_NO            , KC_NO             , KC_RIGHT_ALT     , KC_NO            , KC_TRANSPARENT   ,
+  //|-----------------+------------------+------------------+------------------+------------------+------------------|  |--------------------------+------------------+-------------------+------------------+------------------+-------------------|
+                                                             KC_TRANSPARENT    , KC_TRANSPARENT   , KC_TRANSPARENT  ,     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
+                        //`------------------------------------------------------------------------------------------'  `--------------------------------------------------------------------------------------------------------'
+
+  ),
+
+  [_GAME] = LAYOUT_split_3x6_3(
+  //,----------------------------------------------------------------------------------------------------------------.  ,---------------------------------------------------------------------------------------------------------------------------.
+     KC_ESCAPE        , KC_Q             , KC_W             , KC_E             , KC_R             , KC_T            ,     KC_NO                    , KC_NO            , KC_NO             , KC_NO            , KC_NO            , KC_NO            ,
+  //|-----------------+------------------+------------------+------------------+------------------+------------------|  |--------------------------+------------------+-------------------+------------------+------------------+-------------------|
+     KC_LEFT_CTRL     , KC_A             , KC_S             , KC_D             , KC_F             , KC_G            ,     KC_NO                    , KC_NO            , KC_NO             , KC_NO            , KC_NO            , KC_NO            ,
+  //|-----------------+------------------+------------------+------------------+------------------+------------------|  |--------------------------+------------------+-------------------+------------------+------------------+-------------------|
+     KC_LEFT_SHIFT    , DE_Y             , KC_X             , KC_C             , KC_V             , KC_B            ,     KC_NO                    , KC_NO            , KC_NO             , KC_NO            , KC_NO            , KC_NO            ,
+  //|-----------------+------------------+------------------+------------------+------------------+------------------|  |--------------------------+------------------+-------------------+------------------+------------------+-------------------|
+                                                              MO(_GAME2)       , KC_SPACE         , MO(_GAME_FN)    ,     KC_NO, KC_NO, KC_NO
+                        //`------------------------------------------------------------------------------------------'  `--------------------------------------------------------------------------------------------------------'
+
+  ),
+
+  [_GAME2] = LAYOUT_split_3x6_3(
+  //,----------------------------------------------------------------------------------------------------------------.  ,---------------------------------------------------------------------------------------------------------------------------.
+     KC_ESCAPE        , KC_1             , KC_2             , KC_3             , KC_4             , KC_5            ,     KC_NO                    , KC_NO            , KC_NO             , KC_NO            , KC_NO            , KC_NO            ,
+  //|-----------------+------------------+------------------+------------------+------------------+------------------|  |--------------------------+------------------+-------------------+------------------+------------------+-------------------|
+     KC_NO            , KC_LEFT_GUI      , KC_LEFT_ALT      , KC_TAB           , KC_I             , KC_H            ,     KC_NO                    , KC_NO            , KC_NO             , KC_NO            , KC_NO            , KC_NO            ,
+  //|-----------------+------------------+------------------+------------------+------------------+------------------|  |--------------------------+------------------+-------------------+------------------+------------------+-------------------|
+     KC_ENTER         , DE_Z             , KC_N             , KC_M             , KC_J             , KC_K            ,     KC_NO                    , KC_NO            , KC_NO             , KC_NO            , KC_NO            , KC_NO            ,
+  //|-----------------+------------------+------------------+------------------+------------------+------------------|  |--------------------------+------------------+-------------------+------------------+------------------+-------------------|
+                                                              KC_TRANSPARENT   , KC_TRANSPARENT   , KC_TRANSPARENT  ,     KC_NO, KC_NO, KC_NO
+                        //`------------------------------------------------------------------------------------------'  `--------------------------------------------------------------------------------------------------------'
+
+  ),
+
+  [_GAME_FN] = LAYOUT_split_3x6_3(
+  //,----------------------------------------------------------------------------------------------------------------.  ,---------------------------------------------------------------------------------------------------------------------------.
+     KC_NO            , KC_F1            , KC_F2            , KC_F3            , KC_F4            , KC_F5           ,     KC_NO                    , KC_NO            , KC_NO             , KC_NO            , KC_NO            , KC_NO            ,
+  //|-----------------+------------------+------------------+------------------+------------------+------------------|  |--------------------------+------------------+-------------------+------------------+------------------+-------------------|
+     KC_NO            , KC_F6            , KC_TRANSPARENT   , KC_TRANSPARENT   , KC_TRANSPARENT   , LALT(KC_F4)     ,     KC_NO                    , KC_NO            , KC_NO             , KC_NO            , KC_NO            , KC_NO            ,
+  //|-----------------+------------------+------------------+------------------+------------------+------------------|  |--------------------------+------------------+-------------------+------------------+------------------+-------------------|
+     KC_NO            , KC_F13           , KC_F14           , KC_F16           , KC_F17           , LGUI(KC_G)      ,     KC_NO                    , KC_NO            , KC_NO             , KC_NO            , KC_NO            , KC_NO            ,
+  //|-----------------+------------------+------------------+------------------+------------------+------------------|  |--------------------------+------------------+-------------------+------------------+------------------+-------------------|
+                                                              KC_TRANSPARENT   , KC_TRANSPARENT   , KC_TRANSPARENT  ,     KC_NO, KC_NO, KC_NO
+                        //`------------------------------------------------------------------------------------------'  `--------------------------------------------------------------------------------------------------------'
+
+  )
+};
+
+const uint16_t PROGMEM combo0[] = { MT(MOD_LGUI, KC_A), MT(MOD_LALT, KC_R), MT(MOD_LCTL, KC_T), MT(MOD_LSFT, KC_S), COMBO_END};
+const uint16_t PROGMEM combo1[] = { KC_A, KC_S, KC_F, KC_D, COMBO_END};
+const uint16_t PROGMEM combo2[] = { KC_LEFT_SHIFT, MO(_SYM), COMBO_END};
+
+combo_t key_combos[] = {
+    COMBO(combo0, TO(_GAME)),
+    COMBO(combo1, TO(_BASE)),
+    COMBO(combo2, MO(_FUN)),
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+
+    case TD(DANCE_0):
+    case TD(DANCE_1):
+    case TD(DANCE_2):
+    case TD(DANCE_3):
+        action = &tap_dance_actions[TD_INDEX(keycode)];
+        if (!record->event.pressed && action->state.count && !action->state.finished) {
+            tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
+            tap_code16(tap_hold->tap);
+        }
+        break;
+/*     case RGB_SLD:
+      if (record->event.pressed) {
+        rgblight_mode(1);
+      }
+      return false; */
+  }
+  return true;
+}
+
+void tap_dance_tap_hold_finished(tap_dance_state_t *state, void *user_data) {
+    tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)user_data;
+
+    if (state->pressed) {
+        if (state->count == 1
+#ifndef PERMISSIVE_HOLD
+            && !state->interrupted
+#endif
+        ) {
+            register_code16(tap_hold->hold);
+            tap_hold->held = tap_hold->hold;
+        } else {
+            register_code16(tap_hold->tap);
+            tap_hold->held = tap_hold->tap;
+        }
+    }
+}
+
+void tap_dance_tap_hold_reset(tap_dance_state_t *state, void *user_data) {
+    tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)user_data;
+
+    if (tap_hold->held) {
+        unregister_code16(tap_hold->held);
+        tap_hold->held = 0;
+    }
+}
+
+#define ACTION_TAP_DANCE_TAP_HOLD(tap, hold) \
+    { .fn = {NULL, tap_dance_tap_hold_finished, tap_dance_tap_hold_reset}, .user_data = (void *)&((tap_dance_tap_hold_t){tap, hold, 0}), }
+
+
+
+tap_dance_action_t tap_dance_actions[] = {
+        [DANCE_0] = ACTION_TAP_DANCE_TAP_HOLD(DE_Z, LCTL(DE_Z)),
+        [DANCE_1] = ACTION_TAP_DANCE_TAP_HOLD(KC_X, LCTL(KC_X)),
+        [DANCE_2] = ACTION_TAP_DANCE_TAP_HOLD(KC_C, LCTL(KC_C)),
+        [DANCE_3] = ACTION_TAP_DANCE_TAP_HOLD(KC_V, LCTL(KC_V)),
+};
+
+
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+  rgblight_config_t rgblight_config;
+  rgblight_enable_noeeprom();
+
+  switch(biton32(state)) {
+  case _NAV:
+    rgblight_sethsv_noeeprom(HSV_GOLD);
+    break;
+  case _SYM:
+    rgblight_sethsv_noeeprom(HSV_PURPLE);
+    break;
+  case _NUM:
+    rgblight_sethsv_noeeprom(HSV_AZURE);
+    break;
+    case _FUN:
+    rgblight_sethsv_noeeprom(HSV_TEAL);
+    break;
+  case _GAME:
+    rgblight_sethsv_noeeprom(HSV_GREEN);
+    break;
+  case _GAME2:
+    rgblight_sethsv_noeeprom(HSV_MAGENTA);
+    break;
+  case _GAME_FN:
+    rgblight_sethsv_noeeprom(HSV_RED);
+    break;
+  case _BASE:
+  default:
+    //Read RGB Light State
+    rgblight_config.raw = eeconfig_read_rgblight();
+    //If enabled, set white
+    if (rgblight_config.enable) {
+		rgblight_sethsv_noeeprom(HSV_BLUE);
+	} else { //Otherwise go back to disabled
+		rgblight_disable_noeeprom();
+	}
+    break;
+}
+return state;
+}
+
+void keyboard_post_init_user(void) {
+  // use the non noeeprom versions, to write these values to EEPROM too
+  rgblight_enable(); // Enable RGB by default
+  layer_state_set_user(_BASE);  // Set it to white by default
+}
