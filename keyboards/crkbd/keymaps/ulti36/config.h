@@ -33,8 +33,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DYNAMIC_KEYMAP_LAYER_COUNT 8
 
+#define LEADER_PER_KEY_TIMING
+#define LEADER_TIMEOUT 200
+#define LEADER_NO_TIMEOUT
+
 #undef TAPPING_TERM
-#define TAPPING_TERM 160
+#define TAPPING_TERM 170
 
 #ifdef RGBLIGHT_ENABLE
 #    define RGBLIGHT_LIMIT_VAL 120
@@ -42,5 +46,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLIGHT_SAT_STEP 17
 #    define RGBLIGHT_VAL_STEP 17
 #endif
-
-#define LEADER_TIMEOUT 300

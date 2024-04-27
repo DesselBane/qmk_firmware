@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
+#include "sendstring_german.h"
 #include "i18n.h"
 
 typedef struct {
@@ -35,6 +36,7 @@ enum LAYERS {
   _GAME,
   _GAME2,
   _GAME_FN,
+  _LEADER,
 };
 
 enum tap_dance_codes {
@@ -47,13 +49,13 @@ enum tap_dance_codes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT_split_3x6_3(
   //,----------------------------------------------------------------------------------------------------------------.  ,---------------------------------------------------------------------------------------------------------------------------.
-     DE_PLUS          ,    KC_Q          ,    KC_W          ,    KC_F          ,    KC_P          ,    KC_B,                         KC_J          ,    KC_L          ,    KC_U           ,    DE_Y          , KC_BSPC          , DE_SS            ,
+     DE_PLUS          ,    KC_Q          ,    KC_W          ,    KC_F          ,    KC_P          ,    KC_B,                         KC_J          ,    KC_L          ,    KC_U           ,    DE_Y          , KC_BSPC          , QK_LEAD          ,
   //|-----------------+------------------+------------------+------------------+------------------+------------------|  |--------------------------+------------------+-------------------+------------------+------------------+-------------------|
      DE_MINS          ,MT(MOD_LGUI,KC_A),MT(MOD_LALT, KC_R) ,MT(MOD_LSFT, KC_S),MT(MOD_LCTL, KC_T),    KC_G,                         KC_M          ,MT(MOD_RCTL, KC_N),MT(MOD_RSFT, KC_E) ,MT(MOD_LALT, KC_I),MT(MOD_LGUI, KC_O), DE_DQOT          ,
   //|-----------------+------------------+------------------+------------------+------------------+------------------|  |--------------------------+------------------+-------------------+------------------+------------------+-------------------|
      DE_HASH          , TD(DANCE_0)     , TD(DANCE_1)       , TD(DANCE_2)      ,    KC_D          ,TD(DANCE_3),                      KC_K          ,    KC_H          , KC_COMMA          ,MT(MOD_RALT,KC_DOT), DE_SLSH         , DE_GRV           ,
   //|-----------------+------------------+------------------+------------------+------------------+------------------|  |--------------------------+------------------+-------------------+------------------+------------------+-------------------|
-                                                             KC_ENTER          , LT(_NAV,KC_SPACE), KC_TAB          ,     LT(_NUM, KC_TAB), KC_LEFT_SHIFT, MO(_SYM)
+                                                             KC_ENTER          , LT(_NAV,KC_SPACE), LT(_FUN,KC_TAB) ,     LT(_NUM, KC_TAB), KC_LEFT_SHIFT, MO(_SYM)
                         //`------------------------------------------------------------------------------------------'  `--------------------------------------------------------------------------------------------------------'
 
   ),
@@ -73,11 +75,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_NUM] = LAYOUT_split_3x6_3(
   //,----------------------------------------------------------------------------------------------------------------.  ,---------------------------------------------------------------------------------------------------------------------------.
-     KC_NO            , KC_NO            , KC_7             , KC_8             , KC_9             , DE_CIRC         ,     KC_NO                    , QK_BOOT          , KC_NO             , KC_NO            , KC_TRANSPARENT   , KC_TRANSPARENT   ,
+     KC_NO            , DE_SS            , KC_7             , KC_8             , KC_9             , DE_CIRC         ,     KC_NO                    , QK_BOOT          , KC_NO             , KC_NO            , KC_TRANSPARENT   , KC_TRANSPARENT   ,
   //|-----------------+------------------+------------------+------------------+------------------+------------------|  |--------------------------+------------------+-------------------+------------------+------------------+-------------------|
      KC_NO            , KC_KP_SLASH      , KC_4             , KC_5             , KC_6             , RALT(DE_PLUS)   ,     KC_NO                    , KC_LEFT_CTRL     , KC_LEFT_SHIFT     , KC_LEFT_ALT      , KC_LEFT_GUI      , KC_TRANSPARENT   ,
   //|-----------------+------------------+------------------+------------------+------------------+------------------|  |--------------------------+------------------+-------------------+------------------+------------------+-------------------|
-     KC_NO            , KC_0             , KC_1             , KC_2             , KC_3             , DE_BSLS         ,     KC_NO                    , MO(_FUN)         , KC_NO             , KC_RIGHT_ALT     , KC_NO            , KC_TRANSPARENT   ,
+     KC_NO            , KC_0             , KC_1             , KC_2             , KC_3             , DE_BSLS         ,     KC_NO                    , KC_NO            , KC_NO             , KC_RIGHT_ALT     , KC_NO            , KC_TRANSPARENT   ,
   //|-----------------+------------------+------------------+------------------+------------------+------------------|  |--------------------------+------------------+-------------------+------------------+------------------+-------------------|
                                                               DE_PERC          , KC_SPACE           , KC_DOT        ,     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
                         //`------------------------------------------------------------------------------------------'  `--------------------------------------------------------------------------------------------------------'
@@ -249,6 +251,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   case _GAME_FN:
     rgblight_sethsv_noeeprom(HSV_RED);
     break;
+  case _LEADER:
+    rgblight_sethsv_noeeprom(HSV_MAGENTA);
+    break;
   case _BASE:
   default:
     //Read RGB Light State
@@ -268,4 +273,30 @@ void keyboard_post_init_user(void) {
   // use the non noeeprom versions, to write these values to EEPROM too
   rgblight_enable(); // Enable RGB by default
   layer_state_set_user(_BASE);  // Set it to white by default
+}
+
+void leader_start_user(void) {
+   layer_state_set_user(_LEADER);
+}
+
+void leader_end_user(void) {
+
+   if(leader_sequence_one_key(KC_A)){
+      SEND_STRING(SS_LALT(" ") "<chrome" SS_DELAY(200) "\n");
+
+   } else if(leader_sequence_one_key(KC_R)) {
+      SEND_STRING(SS_LALT(" ") "<windowsTerminal" SS_DELAY(200) "\n");
+
+   } else if(leader_sequence_one_key(KC_S)) {
+      SEND_STRING(SS_LALT(" ") "<spotify" SS_DELAY(200) "\n");
+
+   } else if(leader_sequence_one_key(KC_T)) {
+      SEND_STRING(SS_LALT(" ") "<idea" SS_DELAY(200) "\n");
+
+   } else if(leader_sequence_four_keys(KC_T, KC_E, KC_A, KC_M)) {
+      SEND_STRING(SS_LALT(" ") "<teams" SS_DELAY(200) "\n");
+
+   }
+
+   layer_state_set_user(_BASE);
 }
