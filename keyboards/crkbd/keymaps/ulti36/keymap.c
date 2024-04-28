@@ -268,6 +268,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   case _LEADER:
     rgblight_sethsv_noeeprom(HSV_MAGENTA);
     break;
+  case _MOUSE:
+    rgblight_sethsv_noeeprom(HSV_SPRINGGREEN);
+    break;
   case _BASE:
   default:
     //Read RGB Light State
