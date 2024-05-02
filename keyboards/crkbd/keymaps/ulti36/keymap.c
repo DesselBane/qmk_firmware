@@ -76,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_NAV] = LAYOUT_split_3x6_3(
   //,----------------------------------------------------------------------------------------------------------------.  ,---------------------------------------------------------------------------------------------------------------------------.
-     KC_TRANSPARENT   , KC_ESCAPE        , KC_NO            , RGB_TOG          , QK_BOOT          , LALT(KC_F4),          KC_TRANSPARENT           ,LALT(LSFT(KC_F10)), KC_TRANSPARENT    , KC_TRANSPARENT   , KC_TRANSPARENT   , KC_TRANSPARENT   ,
+     KC_TRANSPARENT   , KC_ESCAPE        , RGB_MODE_PLAIN   , RGB_TOG          , QK_BOOT          , LALT(KC_F4),          KC_TRANSPARENT           ,LALT(LSFT(KC_F10)), KC_TRANSPARENT    , KC_TRANSPARENT   , KC_TRANSPARENT   , KC_TRANSPARENT   ,
   //|-----------------+------------------+------------------+------------------+------------------+------------------|  |--------------------------+------------------+-------------------+------------------+------------------+-------------------|
      KC_TRANSPARENT   , KC_LEFT_GUI      , KC_LEFT_ALT      , KC_LEFT_SHIFT    , KC_LEFT_CTRL     , KC_NO      ,          KC_TRANSPARENT           , KC_LEFT          , KC_DOWN           , KC_UP            , KC_RIGHT         , DE_QUOT          ,
   //|-----------------+------------------+------------------+------------------+------------------+------------------|  |--------------------------+------------------+-------------------+------------------+------------------+-------------------|
