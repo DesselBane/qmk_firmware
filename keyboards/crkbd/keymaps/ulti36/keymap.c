@@ -274,7 +274,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     if (rgblight_config.enable) {
 		rgblight_sethsv_noeeprom(HSV_BLUE);
 	} else { //Otherwise go back to disabled
-		rgblight_disable_noeeprom();
+		rgblight_disable();
 	}
     break;
 }
