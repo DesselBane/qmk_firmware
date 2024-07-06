@@ -23,6 +23,7 @@ EXTRAKEY_ENABLE		= yes # Audio control and System control
 LTO_ENABLE      	= yes
 LEADER_ENABLE 		= yes # Enable leader key chording
 TAP_DANCE_ENABLE 	= yes
+TRI_LAYER_ENABLE  = yes
 
 # RGB
 RGBLIGHT_ENABLE = yes

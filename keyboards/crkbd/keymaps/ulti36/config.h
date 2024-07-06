@@ -24,6 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Select hand configuration */
 
+
+
 #define MASTER_LEFT
 // #define MASTER_RIGHT
 // #define EE_HANDS
@@ -32,6 +34,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define TAPPING_TERM 100
 
 #define DYNAMIC_KEYMAP_LAYER_COUNT 8
+
+// Tri Layer
+
+//enum LAYERS {
+//  _BASE,
+//  _MOUSE,
+//  _NAV, 2
+//  _NUM, 3
+//  _SYM, 4
+//  _FUN, 5
+//  _GAME,
+//  _GAME2,
+//  _GAME_FN,
+//  _LEADER,
+//};
+
+#define TRI_LAYER_LOWER_LAYER 2
+#define TRI_LAYER_UPPER_LAYER 4
+#define TRI_LAYER_ADJUST_LAYER 5
 
 #define LEADER_PER_KEY_TIMING
 #define LEADER_TIMEOUT 200

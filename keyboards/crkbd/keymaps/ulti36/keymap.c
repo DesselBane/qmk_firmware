@@ -19,6 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 #include "sendstring_german.h"
 #include "i18n.h"
+#include "config.h"
+
 
 typedef struct {
     uint16_t tap;
@@ -27,6 +29,8 @@ typedef struct {
 } tap_dance_tap_hold_t;
 tap_dance_action_t *action;
 
+
+// Make sure to change TRI Layer setup as well
 enum LAYERS {
   _BASE,
   _MOUSE,
@@ -56,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|-----------------+------------------+------------------+------------------+------------------+------------------|  |--------------------------+------------------+-------------------+------------------+------------------+-------------------|
      DE_HASH          , TD(DANCE_0)     , TD(DANCE_1)       , TD(DANCE_2)      ,    KC_D          ,TD(DANCE_3),                      KC_K          ,    KC_H          , KC_COMMA          ,MT(MOD_RALT,KC_DOT), DE_SLSH         , DE_GRV           ,
   //|-----------------+------------------+------------------+------------------+------------------+------------------|  |--------------------------+------------------+-------------------+------------------+------------------+-------------------|
-                                                          LT(_MOUSE, KC_ENTER) , LT(_NAV,KC_SPACE), LT(_FUN,KC_TAB) ,     LT(_NUM, KC_TAB), KC_LEFT_SHIFT, MO(_SYM)
+                                                          LT(_MOUSE, KC_ENTER) , KC_SPACE         , TL_LOWR         ,     LT(_NUM, KC_TAB)         , KC_LEFT_SHIFT    , TL_UPPR
                         //`------------------------------------------------------------------------------------------'  `--------------------------------------------------------------------------------------------------------'
 
   ),
