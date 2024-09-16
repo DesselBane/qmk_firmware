@@ -3,26 +3,7 @@
     // Unofficially, QMK uses spaces for indentation
     "editor.insertSpaces": true,
     // Configure glob patterns for excluding files and folders.
-    "files.exclude": {
-        "**/*.uf2": true,
-        "builddefs": true,
-        "data": true,
-        "docs": true,
-        "drivers": true,
-        "layouts": true,
-        "lib": true,
-        "platforms": true,
-        "quantum": true,
-        "tests": true,
-        "tmk_core": true,
-        "users": true,
-        "util": true,
-        "keyboards/[!c]*": true,
-        "keyboards/c[!r]*": true,
-        "keyboards/cr[!k]*": true,
-        "keyboards/crk[!b]*": true,
-        "keyboards/crkb[!d]*": true
-    },
+
     "files.associations": {
         // QMK Filetypes
         "keyboard.json": "jsonc",
