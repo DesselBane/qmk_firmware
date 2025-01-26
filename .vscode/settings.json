@@ -50,5 +50,6 @@
         }
     ],
     "editor.formatOnSave": false,
-    "editor.wordWrap": "off"
+    "editor.wordWrap": "off",
+    "git.ignoreLimitWarning": true
 }
