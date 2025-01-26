@@ -1,3 +1,6 @@
+In .git/info/sparse-checkout
+git spare-checkout init / disable / reapply
+
 /*
 !/*/
 /keyboards/
@@ -16,12 +19,16 @@
 /data/
 /drivers/
 /keyboards/crkbd/
+/keyboards/handwired/darkball/
+/keyboards/handwired/onekey/
+/keyboards/handwired/aball/
 /layouts/community/split_3x5_3/
 /layouts/community/split_3x6_3/
 /layouts/default/split_3x5_3/
 /layouts/default/split_3x6_3/
 /lib/
 /platforms/avr/
+/platforms/chibios/
 /quantum/
 /tmk_core/
 /users/
