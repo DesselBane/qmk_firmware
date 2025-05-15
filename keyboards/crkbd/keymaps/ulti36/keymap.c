@@ -165,11 +165,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const uint16_t PROGMEM combo0[] = { MT(MOD_LGUI, KC_A), MT(MOD_LALT, KC_R), MT(MOD_LCTL, KC_T), MT(MOD_LSFT, KC_S), COMBO_END};
 const uint16_t PROGMEM combo1[] = { KC_A, KC_S, KC_F, KC_D, COMBO_END};
 const uint16_t PROGMEM combo2[] = { KC_LEFT_SHIFT, MO(_SYM), COMBO_END};
+const uint16_t PROGMEM combo3[] = { MT(MOD_RCTL, KC_N), MT(MOD_RSFT, KC_E), MT(MOD_LALT, KC_I), COMBO_END};
+const uint16_t PROGMEM combo4[] = { MT(MOD_LALT, KC_R), MT(MOD_LSFT, KC_S), MT(MOD_LCTL, KC_T), COMBO_END};
+
 
 combo_t key_combos[] = {
     COMBO(combo0, TO(_GAME)),
     COMBO(combo1, TO(_BASE)),
     COMBO(combo2, MO(_FUN)),
+    COMBO(combo3, KC_ESCAPE),
+    COMBO(combo4, KC_TAB),
 };
 
 typedef struct {
