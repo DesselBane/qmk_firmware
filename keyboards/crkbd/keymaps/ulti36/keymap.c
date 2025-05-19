@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|-----------------+------------------+------------------+------------------+------------------+------------------|  |--------------------------+------------------+-------------------+------------------+------------------+-------------------|
      DE_HASH          , TD(DANCE_0)     , TD(DANCE_1)       , TD(DANCE_2)      ,    KC_D          ,TD(DANCE_3),                      KC_K          ,    KC_H          , KC_COMMA          ,MT(MOD_RALT,KC_DOT), DE_SLSH         , DE_GRV           ,
   //|-----------------+------------------+------------------+------------------+------------------+------------------|  |--------------------------+------------------+-------------------+------------------+------------------+-------------------|
-                                                          LT(_MOUSE, KC_ENTER) , KC_SPACE         , TL_LOWR         ,     LT(_NUM, KC_TAB)         , KC_LEFT_SHIFT    , TL_UPPR
+                                                          LT(_MOUSE, KC_ENTER) , KC_SPACE         , TL_LOWR         ,              MO(_NUM)        , KC_LEFT_SHIFT    , TL_UPPR
                         //`------------------------------------------------------------------------------------------'  `--------------------------------------------------------------------------------------------------------'
 
   ),
@@ -323,34 +323,4 @@ void leader_end_user(void) {
    }
 
    layer_state_set_user(_BASE);
-}
-
-
-// Fine tune Chordal Hold
-// https://docs.qmk.fm/tap_hold#per-chord-customization
-
-bool get_chordal_hold(uint16_t tap_hold_keycode, keyrecord_t* tap_hold_record,
-                      uint16_t other_keycode, keyrecord_t* other_record) {
-    // Exceptionally allow some one-handed chords for hotkeys.
-    switch (tap_hold_keycode) {
-        case MT(MOD_LALT, KC_R):
-            if (other_keycode == KC_SPACE) {
-                return true;
-            }
-            break;
-
-        case MT(MOD_LALT, KC_I):
-            if (other_keycode == LT(_NUM, KC_TAB)) {
-                return true;
-            }
-            break;
-
-        case MT(MOD_LCTL, KC_T):
-            if (other_keycode == MT(MOD_LGUI,KC_A)) {
-                return true;
-            }
-            break;
-    }
-    // Otherwise defer to the opposite hands rule.
-    return get_chordal_hold_default(tap_hold_record, other_record);
 }
