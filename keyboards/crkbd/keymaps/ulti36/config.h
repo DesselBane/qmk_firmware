@@ -97,5 +97,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLIGHT_SLEEP
 #endif
 
-#define CHORDAL_HOLD  // Turn on chordal hold => https://docs.qmk.fm/tap_hold#chordal-hold
-#define HOLD_ON_OTHER_KEY_PRESS
+//#define CHORDAL_HOLD  // Turn on chordal hold => https://docs.qmk.fm/tap_hold#chordal-hold
+//#define HOLD_ON_OTHER_KEY_PRESS
