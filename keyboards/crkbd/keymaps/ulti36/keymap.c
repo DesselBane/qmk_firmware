@@ -280,8 +280,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     break;
   case _BASE:
   default:
-    //Read RGB Light State
-    rgblight_config.raw = eeconfig_read_rgblight();
     //If enabled, set white
     if (rgblight_config.enable) {
 		rgblight_sethsv_noeeprom(HSV_BLUE);
