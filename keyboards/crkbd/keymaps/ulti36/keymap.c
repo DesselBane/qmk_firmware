@@ -33,7 +33,6 @@ enum LAYERS {
   _GAME,
   _GAME2,
   _GAME_FN,
-  _LEADER,
 };
 
 enum tap_dance_codes {
@@ -263,9 +262,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     break;
   case _GAME_FN:
     rgblight_sethsv_noeeprom(HSV_RED);
-    break;
-  case _LEADER:
-    rgblight_sethsv_noeeprom(HSV_MAGENTA);
     break;
   case _MOUSE:
     rgblight_sethsv_noeeprom(HSV_SPRINGGREEN);

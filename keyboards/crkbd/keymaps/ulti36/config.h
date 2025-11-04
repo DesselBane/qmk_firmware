@@ -30,12 +30,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MASTER_RIGHT
 // #define EE_HANDS
 
-// #define QUICK_TAP_TERM 0
-// #define TAPPING_TERM 100
 
 #define DYNAMIC_KEYMAP_LAYER_COUNT 8
-
-// Tri Layer
 
 //enum LAYERS {
 //  _BASE,
@@ -47,9 +43,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //  _GAME,
 //  _GAME2,
 //  _GAME_FN,
-//  _LEADER,
 //};
 
+// Tri Layer
 #define TRI_LAYER_LOWER_LAYER 2
 #define TRI_LAYER_UPPER_LAYER 4
 #define TRI_LAYER_ADJUST_LAYER 5
@@ -58,6 +54,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define LEADER_TIMEOUT 200
 // #define LEADER_NO_TIMEOUT
 
+// #define QUICK_TAP_TERM 0
+// #define TAPPING_TERM 100
 #undef TAPPING_TERM
 #define TAPPING_TERM 170
 
