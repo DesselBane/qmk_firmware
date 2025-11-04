@@ -46,7 +46,7 @@ enum tap_dance_codes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT_split_3x6_3(
   //,----------------------------------------------------------------------------------------------------------------.  ,---------------------------------------------------------------------------------------------------------------------------.
-     DE_PLUS          ,    KC_Q          ,    KC_W          , MEH_T(KC_F)      , HYPR_T(KC_P)     ,    KC_B,                         KC_J          , HYPR_T(KC_L)     , MEH_T(KC_U)       ,    DE_Y          , KC_BSPC          , QK_LEAD          ,
+     DE_PLUS          ,    KC_Q          ,    KC_W          , MEH_T(KC_F)      , HYPR_T(KC_P)     ,    KC_B,                         KC_J          , HYPR_T(KC_L)     , MEH_T(KC_U)       ,    DE_Y          , KC_BSPC          , KC_ESCAPE        ,
   //|-----------------+------------------+------------------+------------------+------------------+------------------|  |--------------------------+------------------+-------------------+------------------+------------------+-------------------|
      DE_MINS          ,MT(MOD_LGUI,KC_A),MT(MOD_LALT, KC_R) ,MT(MOD_LSFT, KC_S),MT(MOD_LCTL, KC_T),    KC_G,                         KC_M          ,MT(MOD_RCTL, KC_N),MT(MOD_RSFT, KC_E) ,MT(MOD_LALT, KC_I),MT(MOD_LGUI, KC_O), DE_QUOT          ,
   //|-----------------+------------------+------------------+------------------+------------------+------------------|  |--------------------------+------------------+-------------------+------------------+------------------+-------------------|
@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,----------------------------------------------------------------------------------------------------------------.  ,---------------------------------------------------------------------------------------------------------------------------.
      KC_TRANSPARENT   , KC_NO            , KC_NO            , KC_NO            , KC_NO            , LALT(KC_F4),          KC_MEDIA_PREV_TRACK      , MS_WHLL          , MS_WHLD           , MS_WHLU          , MS_WHLR          , KC_NO            ,
   //|-----------------+------------------+------------------+------------------+------------------+------------------|  |--------------------------+------------------+-------------------+------------------+------------------+-------------------|
-     KC_TRANSPARENT   , KC_NO            , MS_ACL0          , MS_ACL1          , MS_ACL2          , KC_NO      ,          KC_MEDIA_PLAY_PAUSE      , MS_LEFT          , MS_DOWN           , MS_UP            , MS_RGHT         , KC_NO            ,
+     KC_TRANSPARENT   , KC_NO            , MS_ACL0          , MS_ACL1          , MS_ACL2          , KC_NO      ,          KC_MEDIA_PLAY_PAUSE      , MS_LEFT          , MS_DOWN           , MS_UP            , MS_RGHT          , KC_NO            ,
   //|-----------------+------------------+------------------+------------------+------------------+------------------|  |--------------------------+------------------+-------------------+------------------+------------------+-------------------|
      KC_TRANSPARENT   , KC_DELETE        , KC_RIGHT_ALT     , KC_NO            , KC_TAB           , KC_NO      ,          KC_MEDIA_NEXT_TRACK      , MS_BTN4          , MS_BTN5           , KC_PAGE_UP       , KC_END           , KC_NO            ,
   //|-----------------+------------------+------------------+------------------+------------------+------------------|  |--------------------------+------------------+-------------------+------------------+------------------+-------------------|
@@ -166,10 +166,6 @@ const uint16_t PROGMEM combo0[] = { MT(MOD_LGUI, KC_A), MT(MOD_LALT, KC_R), MT(M
 const uint16_t PROGMEM combo1[] = { KC_A, KC_S, KC_F, KC_D, COMBO_END};
 const uint16_t PROGMEM combo2[] = { KC_LEFT_SHIFT, MO(_SYM), COMBO_END};
 
-// Esc
-const uint16_t PROGMEM combo_esc_l[] = { MT(MOD_LALT, KC_R), MT(MOD_LSFT, KC_S), MT(MOD_LCTL, KC_T), COMBO_END};
-const uint16_t PROGMEM combo_esc_r[] = { MT(MOD_RCTL, KC_N), MT(MOD_RSFT, KC_E), MT(MOD_LALT, KC_I), COMBO_END};
-
 // Tab
 const uint16_t PROGMEM combo_tab_l[] = { TD(DANCE_1), TD(DANCE_2), KC_D               , COMBO_END};
 const uint16_t PROGMEM combo_tab_r[] = { KC_H       , KC_COMMA   , MT(MOD_RALT,KC_DOT), COMBO_END };
@@ -179,8 +175,6 @@ combo_t key_combos[] = {
     COMBO(combo0, TO(_GAME)),
     COMBO(combo1, TO(_BASE)),
     COMBO(combo2, MO(_FUN)),
-    COMBO(combo_esc_l, KC_ESCAPE),
-    COMBO(combo_esc_r, KC_ESCAPE),
     COMBO(combo_tab_l, KC_TAB),
     COMBO(combo_tab_r, KC_TAB),
 };
@@ -299,30 +293,4 @@ void keyboard_post_init_user(void) {
   // use the non noeeprom versions, to write these values to EEPROM too
   rgblight_enable(); // Enable RGB by default
   layer_state_set_user(_BASE);  // Set it to white by default
-}
-
-void leader_start_user(void) {
-   layer_state_set_user(_LEADER);
-}
-
-void leader_end_user(void) {
-
-   if(leader_sequence_one_key(KC_A)){
-      SEND_STRING(SS_LALT(" ") "<chrome" SS_DELAY(200) "\n");
-
-   } else if(leader_sequence_one_key(KC_R)) {
-      SEND_STRING(SS_LALT(" ") "<windowsTerminal" SS_DELAY(200) "\n");
-
-   } else if(leader_sequence_one_key(KC_S)) {
-      SEND_STRING(SS_LALT(" ") "<spotify" SS_DELAY(200) "\n");
-
-   } else if(leader_sequence_one_key(KC_T)) {
-      SEND_STRING(SS_LALT(" ") "<idea" SS_DELAY(200) "\n");
-
-   } else if(leader_sequence_four_keys(KC_T, KC_E, KC_A, KC_M)) {
-      SEND_STRING(SS_LALT(" ") "<teams" SS_DELAY(200) "\n");
-
-   }
-
-   layer_state_set_user(_BASE);
 }

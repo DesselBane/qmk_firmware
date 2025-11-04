@@ -54,9 +54,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TRI_LAYER_UPPER_LAYER 4
 #define TRI_LAYER_ADJUST_LAYER 5
 
-#define LEADER_PER_KEY_TIMING
-#define LEADER_TIMEOUT 200
-#define LEADER_NO_TIMEOUT
+// #define LEADER_PER_KEY_TIMING
+// #define LEADER_TIMEOUT 200
+// #define LEADER_NO_TIMEOUT
 
 #undef TAPPING_TERM
 #define TAPPING_TERM 170

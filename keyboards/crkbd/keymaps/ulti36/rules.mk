@@ -21,7 +21,7 @@ MOUSEKEY_ENABLE		= yes # Mouse keys
 COMBO_ENABLE			= yes # Key combo feature
 EXTRAKEY_ENABLE		= yes # Audio control and System control
 LTO_ENABLE      	= yes
-LEADER_ENABLE 		= yes # Enable leader key chording
+LEADER_ENABLE 		= no # Enable leader key chording
 TAP_DANCE_ENABLE 	= yes
 TRI_LAYER_ENABLE  = yes
 
