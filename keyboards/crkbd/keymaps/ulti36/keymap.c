@@ -247,8 +247,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-  rgblight_config_t rgblight_config;
-  rgblight_enable_noeeprom();
 
   switch(biton32(state)) {
   case _NAV:
@@ -279,10 +277,16 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_sethsv_noeeprom(HSV_SPRINGGREEN);
     break;
   case _BASE:
+    rgblight_sethsv_noeeprom(HSV_BLUE);
+    break;
   default:
+    rgblight_config_t rgblight_config;
+
+    //Read RGB Light State
+    eeconfig_read_rgblight(&rgblight_config);
     //If enabled, set white
     if (rgblight_config.enable) {
-		rgblight_sethsv_noeeprom(HSV_BLUE);
+      rgblight_enable_noeeprom();
 	} else { //Otherwise go back to disabled
 		rgblight_disable();
 	}
