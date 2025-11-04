@@ -59,13 +59,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_MOUSE] = LAYOUT_split_3x6_3(
   //,----------------------------------------------------------------------------------------------------------------.  ,---------------------------------------------------------------------------------------------------------------------------.
-     KC_TRANSPARENT   , KC_NO            , KC_NO            , KC_NO            , KC_NO            , LALT(KC_F4),          KC_MEDIA_PREV_TRACK      ,KC_MS_WH_LEFT     , KC_MS_WH_DOWN     , KC_MS_WH_UP      , KC_MS_WH_RIGHT   , KC_NO            ,
+     KC_TRANSPARENT   , KC_NO            , KC_NO            , KC_NO            , KC_NO            , LALT(KC_F4),          KC_MEDIA_PREV_TRACK      , MS_WHLL          , MS_WHLD           , MS_WHLU          , MS_WHLR          , KC_NO            ,
   //|-----------------+------------------+------------------+------------------+------------------+------------------|  |--------------------------+------------------+-------------------+------------------+------------------+-------------------|
-     KC_TRANSPARENT   , KC_NO            , KC_ACL0          , KC_ACL1          , KC_ACL2          , KC_NO      ,          KC_MEDIA_PLAY_PAUSE      , KC_MS_LEFT       , KC_MS_DOWN        , KC_MS_UP         , KC_MS_RIGHT      , KC_NO            ,
+     KC_TRANSPARENT   , KC_NO            , MS_ACL0          , MS_ACL1          , MS_ACL2          , KC_NO      ,          KC_MEDIA_PLAY_PAUSE      , MS_LEFT          , MS_DOWN           , MS_UP            , MS_RGHT         , KC_NO            ,
   //|-----------------+------------------+------------------+------------------+------------------+------------------|  |--------------------------+------------------+-------------------+------------------+------------------+-------------------|
-     KC_TRANSPARENT   , KC_DELETE        , KC_RIGHT_ALT     , KC_NO            , KC_TAB           , KC_NO      ,          KC_MEDIA_NEXT_TRACK      , KC_MS_BTN4       , KC_MS_BTN5        , KC_PAGE_UP       , KC_END           , KC_NO            ,
+     KC_TRANSPARENT   , KC_DELETE        , KC_RIGHT_ALT     , KC_NO            , KC_TAB           , KC_NO      ,          KC_MEDIA_NEXT_TRACK      , MS_BTN4          , MS_BTN5           , KC_PAGE_UP       , KC_END           , KC_NO            ,
   //|-----------------+------------------+------------------+------------------+------------------+------------------|  |--------------------------+------------------+-------------------+------------------+------------------+-------------------|
-                                                             KC_TRANSPARENT    , KC_TRANSPARENT   , KC_TRANSPARENT  ,     KC_MS_BTN3, KC_MS_BTN1, KC_MS_BTN2
+                                                             KC_TRANSPARENT    , KC_TRANSPARENT   , KC_TRANSPARENT  ,     MS_BTN3, MS_BTN1, MS_BTN2
                         //`------------------------------------------------------------------------------------------'  `--------------------------------------------------------------------------------------------------------'
 
   ),
