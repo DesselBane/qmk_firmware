@@ -59,6 +59,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef TAPPING_TERM
 #define TAPPING_TERM 170
 
+#define CHORDAL_HOLD  // Turn on chordal hold => https://docs.qmk.fm/tap_hold#chordal-hold
+//#define HOLD_ON_OTHER_KEY_PRESS
+
 // Mouse
 #define MK_3_SPEED
 #define MK_MOMENTARY_ACCEL
@@ -94,6 +97,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLIGHT_VAL_STEP 17
 #    define RGBLIGHT_SLEEP
 #endif
-
-//#define CHORDAL_HOLD  // Turn on chordal hold => https://docs.qmk.fm/tap_hold#chordal-hold
-//#define HOLD_ON_OTHER_KEY_PRESS
