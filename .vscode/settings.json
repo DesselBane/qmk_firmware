@@ -49,7 +49,7 @@
             "url": "./data/schemas/keymap.jsonschema"
         }
     ],
-    "editor.formatOnSave": false,
+    "editor.formatOnSave": true,
     "editor.wordWrap": "off",
     "git.ignoreLimitWarning": true
 }
