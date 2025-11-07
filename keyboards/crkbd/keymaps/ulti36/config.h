@@ -24,26 +24,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Select hand configuration */
 
-
-
 #define MASTER_LEFT
 // #define MASTER_RIGHT
 // #define EE_HANDS
 
-
 #define DYNAMIC_KEYMAP_LAYER_COUNT 8
 
-//enum LAYERS {
-//  _BASE,
-//  _MOUSE,
-//  _NAV, 2
-//  _NUM, 3
-//  _SYM, 4
-//  _FUN, 5
-//  _GAME,
-//  _GAME2,
-//  _GAME_FN,
-//};
+// enum LAYERS {
+//   _BASE,
+//   _MOUSE,
+//   _NAV, 2
+//   _NUM, 3
+//   _SYM, 4
+//   _FUN, 5
+//   _GAME,
+//   _GAME2,
+//   _GAME_FN,
+// };
 
 // Tri Layer
 #define TRI_LAYER_LOWER_LAYER 2
@@ -59,36 +56,39 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef TAPPING_TERM
 #define TAPPING_TERM 170
 
-#define CHORDAL_HOLD  // Turn on chordal hold => https://docs.qmk.fm/tap_hold#chordal-hold
-//#define HOLD_ON_OTHER_KEY_PRESS
+#define CHORDAL_HOLD // Turn on chordal hold => https://docs.qmk.fm/tap_hold#chordal-hold
+// #define HOLD_ON_OTHER_KEY_PRESS
+
+#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+#define CAPS_WORD_INVERT_ON_SHIFT
 
 // Mouse
 #define MK_3_SPEED
 #define MK_MOMENTARY_ACCEL
 
-#define MK_C_OFFSET_0	1	        //Cursor offset per movement (KC_ACL0)
-#define MK_C_INTERVAL_0	32	    //Time between cursor movements (KC_ACL0)
+#define MK_C_OFFSET_0 1    // Cursor offset per movement (KC_ACL0)
+#define MK_C_INTERVAL_0 32 // Time between cursor movements (KC_ACL0)
 
-#define MK_C_OFFSET_1	4	        //Cursor offset per movement (KC_ACL1)
-#define MK_C_INTERVAL_1	16	    //Time between cursor movements (KC_ACL1)
+#define MK_C_OFFSET_1 4    // Cursor offset per movement (KC_ACL1)
+#define MK_C_INTERVAL_1 16 // Time between cursor movements (KC_ACL1)
 
-#define MK_C_OFFSET_UNMOD	8 	  //Cursor offset per movement (unmodified)
-#define MK_C_INTERVAL_UNMOD	16	//Time between cursor movements (unmodified)
+#define MK_C_OFFSET_UNMOD 8    // Cursor offset per movement (unmodified)
+#define MK_C_INTERVAL_UNMOD 16 // Time between cursor movements (unmodified)
 
-#define MK_C_OFFSET_2	32	      //Cursor offset per movement (KC_ACL2)
-#define MK_C_INTERVAL_2	16	    //Time between cursor movements (KC_ACL2)
+#define MK_C_OFFSET_2 32   // Cursor offset per movement (KC_ACL2)
+#define MK_C_INTERVAL_2 16 // Time between cursor movements (KC_ACL2)
 
-#define MK_W_OFFSET_0	1         //Scroll steps per scroll action (KC_ACL0)
-#define MK_W_INTERVAL_0	200	    //Time between scroll steps (KC_ACL0)
+#define MK_W_OFFSET_0 1     // Scroll steps per scroll action (KC_ACL0)
+#define MK_W_INTERVAL_0 200 // Time between scroll steps (KC_ACL0)
 
-#define MK_W_OFFSET_1	1	        //Scroll steps per scroll action (KC_ACL1)
-#define MK_W_INTERVAL_1	60	    //Time between scroll steps (KC_ACL1)
+#define MK_W_OFFSET_1 1    // Scroll steps per scroll action (KC_ACL1)
+#define MK_W_INTERVAL_1 60 // Time between scroll steps (KC_ACL1)
 
-#define MK_W_OFFSET_UNMOD	1	    //Scroll steps per scroll action (unmodified)
-#define MK_W_INTERVAL_UNMOD	20	//Time between scroll steps (unmodified)
+#define MK_W_OFFSET_UNMOD 1    // Scroll steps per scroll action (unmodified)
+#define MK_W_INTERVAL_UNMOD 20 // Time between scroll steps (unmodified)
 
-#define MK_W_OFFSET_2	2	        //Scroll steps per scroll action (KC_ACL2)
-#define MK_W_INTERVAL_2	10	    //Time between scroll steps (KC_ACL2)
+#define MK_W_OFFSET_2 2    // Scroll steps per scroll action (KC_ACL2)
+#define MK_W_INTERVAL_2 10 // Time between scroll steps (KC_ACL2)
 
 #ifdef RGBLIGHT_ENABLE
 #    define RGBLIGHT_LIMIT_VAL 120
