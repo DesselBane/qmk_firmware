@@ -96,7 +96,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case TD(DANCE_1):
         case TD(DANCE_2):
         case TD(DANCE_3):
-            action = tap_dance_get(QK_TAP_DANCE_GET_INDEX(keycode));
+            action = &tap_dance_actions[TD_INDEX(keycode)];
             state  = tap_dance_get_state(QK_TAP_DANCE_GET_INDEX(keycode));
 
             if (is_caps_word_on()) {
