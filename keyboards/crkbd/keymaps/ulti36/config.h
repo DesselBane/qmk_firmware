@@ -59,6 +59,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define CHORDAL_HOLD // Turn on chordal hold => https://docs.qmk.fm/tap_hold#chordal-hold
 // #define HOLD_ON_OTHER_KEY_PRESS
 
+#define SPECULATIVE_HOLD
+
 #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
 #define CAPS_WORD_INVERT_ON_SHIFT
 
