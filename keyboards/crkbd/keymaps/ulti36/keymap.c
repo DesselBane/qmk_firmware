@@ -336,3 +336,9 @@ bool caps_word_press_user(uint16_t keycode) {
             return false; // Deactivate Caps Word.
     }
 }
+
+bool get_speculative_hold(uint16_t keycode, keyrecord_t *record) {
+    // Only trigger on Shift not on CTRL
+    const uint8_t mods = mod_config(QK_MOD_TAP_GET_MODS(keycode));
+    return (mods & (MOD_LSFT | MOD_RSFT)) == (mods & (MOD_HYPR));
+}
